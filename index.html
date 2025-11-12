@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turismo Ecuador</title>
     <style>
-        /* Reset mínimo y fuente */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root { --nav-height: 64px; --green-nature: #2e8b57; }
         html, body { height: 100%; }
+
         body {
             padding-top: var(--nav-height);
             font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.5;
             color: #222;
             background: #f5f7fb;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
         }
 
-        /* Navegación superior */
-        .nav{
+        /* Navegación */
+        .nav {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             height: var(--nav-height);
             display: flex;
@@ -32,7 +30,7 @@
             box-shadow: 0 2px 8px rgba(10,20,30,0.06);
             z-index: 1200;
         }
-        .nav-inner{
+        .nav-inner {
             width: 100%;
             max-width: 1100px;
             margin: 0 auto;
@@ -41,22 +39,47 @@
             justify-content: space-between;
             padding: 0 16px;
         }
-        .nav .brand{
+        .brand {
             font-weight: 700;
             color: var(--green-nature);
             text-decoration: none;
             font-size: 18px;
         }
-        .nav-links{ list-style: none; display: flex; gap: 18px; align-items: center; }
-        .nav-links a{ text-decoration: none; color: #13403a; padding: 8px 10px; border-radius: 6px; transition: background 160ms ease; }
-        .nav-links a:hover{ background: rgba(46,139,87,0.08); }
-
-        @media (max-width: 680px){
-            .nav-links{ gap: 10px; }
-            .nav .brand{ font-size: 16px; }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
         }
+        .nav-links a {
+            text-decoration: none;
+            color: #13403a;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background 160ms ease;
+        }
+        .nav-links a:hover { background: rgba(46,139,87,0.08); }
 
-        /* HERO centrado */
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #13403a;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* Hero */
         .hero {
             display: flex;
             align-items: center;
@@ -65,125 +88,167 @@
             min-height: 48vh;
             padding: 48px 16px;
             color: #fff;
-            /* Fondo: imagen de naturaleza (coloca images/hero.jpg en la carpeta images/) */
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/hero.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('img/ecuador.jpg') center/cover no-repeat;
             background-attachment: fixed;
         }
-
         .hero-content h1 {
-            color: #ffffff; /* letras blancas sobre fondo de naturaleza */
             font-size: clamp(28px, 5vw, 48px);
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
             font-weight: 700;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+            margin-bottom: 12px;
         }
-
         .hero-content p {
             font-size: clamp(14px, 2.4vw, 18px);
             max-width: 820px;
             margin: 0 auto;
-            color: rgba(255,255,255,0.95);
         }
 
-        /* Contenedor de contenido */
+        /* Contenido */
         .contenido {
             padding: 40px 20px;
             max-width: 1100px;
             margin: 0 auto;
         }
-
-        /* Titulos internos */
         .contenido h2 {
             font-size: 24px;
             margin-bottom: 12px;
             color: #0b3d3b;
         }
+        .contenido p { margin-bottom: 20px; color: #334; }
 
-        .contenido p {
-            margin-bottom: 20px;
-            color: #334;
-        }
-
-        /* Tarjetas responsivas */
+        /* Tarjetas */
         .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 18px;
         }
-
         .card {
             background: #fff;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 6px 18px rgba(15,20,30,0.08);
-            transition: transform 200ms ease, box-shadow 200ms ease;
+            transition: transform 200ms ease;
             display: flex;
             flex-direction: column;
         }
-
         .card img {
             width: 100%;
             height: 160px;
             object-fit: cover;
-            display: block;
+        }
+        .card-body { padding: 16px; flex: 1; }
+        .card:hover { transform: translateY(-6px); }
+
+        /* Sección de reseñas */
+        .region-reviews {
+            background-color: #fff;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+        .review-container {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .review-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .review-card h3 {
+            color: var(--green-nature);
+            margin-bottom: 10px;
         }
 
-        .card-body {
-            padding: 16px;
-            flex: 1 1 auto;
+        /* Video */
+        .video-section {
+            padding: 40px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
         }
 
-        .card h3 {
-            margin-bottom: 8px;
-            color: #07323a;
-            font-size: 18px;
-        }
-
-        .card p {
-            color: #4a4a4a;
-            font-size: 14px;
-        }
-
-        /* Hover */
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 36px rgba(10,20,40,0.12);
-        }
-
-        /* Footer */
+        /* Contactos */
         .contactos {
             background: linear-gradient(180deg,#07323a,#0f5660);
             color: #fff;
             padding: 18px 16px;
         }
-
-        .contactos .footer-inner {
+        .footer-inner {
             max-width: 1100px;
             margin: 0 auto;
             text-align: center;
         }
-
-        /* Responsive: espacio vertical adicional para pantallas pequeñas */
-        @media (max-width: 520px) {
-            .hero { padding: 36px 12px; min-height: 42vh; }
-            .card img { height: 140px; }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .submit-btn {
+            background-color: var(--green-nature);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover { background-color: #236b43; }
     </style>
 </head>
 <body>
-    <!-- Menú de navegación -->
+    <!-- Menú -->
     <nav class="nav">
         <div class="nav-inner">
             <a class="brand" href="#hero">Turismo</a>
             <ul class="nav-links">
                 <li><a href="#hero">Inicio</a></li>
-                <li><a href="#contenido">Explora el Ecuador</a></li>
+                <li class="dropdown">
+                    <a href="#contenido">Explora el Ecuador</a>
+                    <div class="dropdown-content">
+                        <a href="#sierra">Sierra</a>
+                        <a href="#costa">Costa</a>
+                        <a href="#amazonia">Amazonía</a>
+                        <a href="#galapagos">Galápagos</a>
+                    </div>
+                </li>
                 <li><a href="#contactos">Contactos</a></li>
             </ul>
         </div>
     </nav>
-    <!-- Sección 1: Título principal -->
+
+    <!-- Hero -->
     <section id="hero" class="hero">
         <div class="hero-content">
             <h1>Turismo Ecuador</h1>
@@ -191,42 +256,139 @@
         </div>
     </section>
 
-    <!-- Sección intermedia -->
+    <!-- Contenido -->
     <section id="contenido" class="contenido">
         <h2>Destinos destacados</h2>
-        <p>Encuentra información sobre regiones, actividades y recomendaciones para visitantes.</p>
         <div class="cards">
             <article class="card">
-                <img src="images/andes.jpg" alt="Andes - montañas y senderos">
+                <img src="img/Andes.jpg" alt="Sierra - montañas y senderos">
                 <div class="card-body">
-                    <h3>Andes</h3>
-                    <p>Montañas, senderismo y pueblos con tradición.</p>
+                    <h3>Sierra</h3>
+                    <p>Montañas majestuosas y pueblos con tradición.</p>
                 </div>
             </article>
             <article class="card">
-                <img src="images/amazonia.jpg" alt="Amazonía - biodiversidad">
+                <img src="img/Costa.jpg" alt="Costa - playas">
+                <div class="card-body">
+                    <h3>Costa</h3>
+                    <p>Playas paradisíacas y gastronomía local.</p>
+                </div>
+            </article>
+            <article class="card">
+                <img src="img/Amazonia.jpg" alt="Amazonía - biodiversidad">
                 <div class="card-body">
                     <h3>Amazonía</h3>
-                    <p>Biodiversidad, tours ecológicos y comunidades indígenas.</p>
+                    <p>Biodiversidad y tours ecológicos.</p>
                 </div>
             </article>
             <article class="card">
-                <img src="images/galapagos.jpg" alt="Galápagos y Costa - islas y playas">
+                <img src="img/Galapagos.jpg" alt="Galápagos - islas">
                 <div class="card-body">
-                    <h3>Galápagos y Costa</h3>
-                    <p>Islas únicas, vida marina y playas con gastronomía local.</p>
+                    <h3>Galápagos</h3>
+                    <p>Islas únicas y vida marina endémica.</p>
                 </div>
             </article>
         </div>
+
+        <!-- Sección de reseñas -->
+        <section class="region-reviews">
+            <h2>Descubre Nuestras Regiones</h2>
+            <div class="review-container">
+                <div class="review-card" id="sierra">
+                    <h3>Sierra Ecuatoriana</h3>
+                    <p>La región andina es hogar de imponentes volcanes y ciudades coloniales como Quito y Cuenca.</p>
+                </div>
+                <div class="review-card" id="costa">
+                    <h3>Costa Ecuatoriana</h3>
+                    <p>Más de 2,000 km de playas y una gastronomía deliciosa. Destacan Montañita y Salinas.</p>
+                </div>
+                <div class="review-card" id="amazonia">
+                    <h3>Amazonía Ecuatoriana</h3>
+                    <p>Biodiversidad, comunidades indígenas y selva tropical única.</p>
+                </div>
+                <div class="review-card" id="galapagos">
+                    <h3>Islas Galápagos</h3>
+                    <p>Un santuario natural con especies únicas en el mundo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video -->
+        <section class="video-section">
+            <h2>Descubre Ecuador</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/RDbe-4Z5bvQ" 
+                        title="Turismo en Ecuador"
+                        allowfullscreen></iframe>
+            </div>
+        </section>
     </section>
 
-    <!-- Pie con contactos -->
+    <!-- Contactos -->
     <footer id="contactos" class="contactos">
         <div class="footer-inner">
-            <h3>Contactos</h3>
-            <p>Email: info@turismoecuador.com</p>
-            <p>Teléfono: +593 123 456 789</p>
-            <p>Dirección: Quito, Ecuador</p>
+            <h3>Contáctanos</h3>
+            <form class="contact-form" method="POST" action="procesar_formulario.php">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+                <div class="form-group">
+                    <label for="destino">Destino de interés</label>
+                    <select id="destino" name="destino" required>
+                        <option value="">Seleccione un destino</option>
+                        <option value="sierra">Sierra</option>
+                        <option value="costa">Costa</option>
+                        <option value="amazonia">Amazonía</option>
+                        <option value="galapagos">Galápagos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha de viaje</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+                <div class="form-group">
+                    <label for="personas">Número de personas</label>
+                    <input type="number" id="personas" name="personas" min="1" max="20">
+                </div>
+                <div class="form-group">
+                    <label for="presupuesto">Presupuesto estimado (USD)</label>
+                    <input type="number" id="presupuesto" name="presupuesto">
+                </div>
+                <div class="form-group">
+                    <label for="duracion">Duración del viaje (días)</label>
+                    <input type="number" id="duracion" name="duracion" min="1" max="60">
+                </div>
+                <div class="form-group">
+                    <label for="transporte">Medio de transporte preferido</label>
+                    <select id="transporte" name="transporte">
+                        <option value="">Seleccione</option>
+                        <option value="auto">Auto</option>
+                        <option value="bus">Bus</option>
+                        <option value="avion">Avión</option>
+                        <option value="barco">Barco</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje adicional</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar mensaje</button>
+            </form>
+
+            <div style="margin-top: 20px;">
+                <p>Email: info@turismoecuador.com</p>
+                <p>Teléfono: +593 123 456 789</p>
+                <p>Dirección: Quito, Ecuador</p>
+            </div>
         </div>
     </footer>
 </body>
